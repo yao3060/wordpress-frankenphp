@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+set -aeuo pipefail
+
+# create the dotenv file if it doesn't exist
+if [ ! -f .env ]; then
+  cp .env.default .env
+fi
+
+source .env
+
+CACHE_DATE=$(date +%s)
+VERSION=$(cat VERSION)
+
+APP=()
+NO_DEV=0
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --app)
+            APP+=("$2")
+            shift 2
+            ;;
+        --no-dev)
+            NO_DEV=1
+            shift 1
+            ;;
+        *)
+            break
+            ;;
+    esac
+done
+
+FILES="-f ./docker-compose.yml"
+
+if [[ ! -n "${APP-}" ]]; then
+    # Order docker-compose.yml file first and other docker-compose.*.yml files for override
+    FILES="${FILES} $(find ./src-* -maxdepth 1 -name "docker-compose.yml" -exec echo "-f {} " \;)"
+
+    if [ "${NO_DEV}" -eq 0 ]; then
+        FILES="${FILES} $(find ./src-* -maxdepth 1 -name "docker-compose.*.yml" -exec echo "-f {} " \;)"
+    fi
+else
+    for i in ${APP[@]}; do
+        # Order docker-compose.yml file first and other docker-compose.*.yml files for override
+        FILES="${FILES} $(find ./src-${i} -maxdepth 1 -name 'docker-compose.yml' -exec echo '-f {} ' \;)"
+
+        if [ "${NO_DEV}" -eq 0 ]; then
+            FILES="${FILES} $(find ./src-${i} -maxdepth 1 -name 'docker-compose.*.yml' -exec echo '-f {} ' \;)"
+        fi
+    done
+fi
+
+docker-compose $FILES $@

@@ -1,0 +1,27 @@
+# When using multiple docker-compose.yml files from different directories, local paths are not followed correctly.
+# https://github.com/docker/compose/issues/3874
+# this empty file fixes this and could be used to spin up some general containers like prerender, imaginary or a nginx proxy
+version: '2.3'
+
+# networks:
+#   default:
+#     driver: bridge
+#     ipam:
+#       driver: default
+#       config:
+#         - subnet: ${DOCKER_NETWORK_IPAM_SUBNET}
+#           gateway: ${DOCKER_NETWORK_IPAM_GATEWAY}
+
+# services:
+#   prerender:
+#     image: docker.it-consultis.com.cn/itc/prerender:5.4.2
+#     container_name: ${COMPOSE_PROJECT_NAME}_prerender
+#     mem_limit: 500m
+#     restart: always
+
+#   imaginary:
+#     image: h2non/imaginary:1.0.15
+#     container_name: ${COMPOSE_PROJECT_NAME}_imaginary
+#     command: "-concurrency 20 -http-cache-ttl 604800 -enable-url-source http://drupal,${APP_URL}"
+#     mem_limit: 500m
+#     restart: always

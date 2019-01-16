@@ -1,0 +1,10 @@
+.DS_Store
+.idea
+.project
+.vscode
+Thumbs.db
+
+*.swp
+*.swo
+
+.env

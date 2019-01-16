@@ -1,0 +1,72 @@
+variables:
+  GIT_STRATEGY: fetch
+  GIT_DEPTH: 1
+
+cache:
+  key: $CI_PROJECT_ID$CI_COMMIT_REF_SLUG
+  paths:
+    - src-react/node_modules
+    - src-static/node_modules
+
+stages:
+  - deploy-staging
+  - deploy-production
+
+before_script:
+  - set -aeu
+  # - docker login ${DOMAIN_DOCKER_REGISTRY} -u ${DOMAIN_DOCKER_REGISTRY_USERNAME} -p${DOMAIN_DOCKER_REGISTRY_PASSWORD}
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+  - cp .env.default .env
+
+after_script:
+  - source .env
+  - ./deploy/scripts/clean-docker-network.sh  "${PROJECT}${ENVIRONMENT}_default"
+
+###########################################################################
+
+deploy-staging-job:
+  stage: deploy-staging
+  environment:
+    name: staging
+  tags:
+    - buildbox-boilerplate:18.03.X
+  only:
+    - develop
+  script:
+    - ./deploy/scripts/enable-docker-compose-network.sh
+    - ./deploy/scripts/modify-dot-env-staging.sh
+    - sed -i "1 s|$|-${CI_COMMIT_SHA:0:8}|" VERSION
+    - source ./.env
+    - export COMPOSE_PROJECT_NAME="${PROJECT}_${ENVIRONMENT}"
+    - export VERSION=$(cat VERSION)
+    - ./install
+    - ./build
+    - ./test
+    #- ./deploy/scripts/deploy-to.sh [ staging-1 120.55.113.220 ; staging-2 47.90.34.3 ]
+    - echo "pushed successfully" 
+  when: manual
+  
+###########################################################################
+
+deploy-production-job:
+  stage: deploy-production
+  environment:
+    name: production
+  tags:
+    - buildbox-boilerplate:18.03.X
+  only:
+    - master
+  script:
+    - ./deploy/scripts/enable-docker-compose-network.sh
+    - ./deploy/scripts/modify-dot-env-production.sh
+    - sed -i "1 s|$|-${CI_COMMIT_SHA:0:8}|" VERSION
+    - source ./.env
+    - export COMPOSE_PROJECT_NAME="${PROJECT}_${ENVIRONMENT}"
+    - export VERSION=$(cat VERSION)
+    - ./install
+    - ./build
+    - ./test
+    # - ./deploy/scripts/deploy-to.sh [replace_production_server_ip_here] for standalone server
+    #- ./deploy/scripts/deploy-to-aliyun-cs.sh cron react_nginx [list containers name here, as example] for aliyun_cs 
+    - echo "pushed successfully" 
+  when: manual
