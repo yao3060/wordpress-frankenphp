@@ -14,8 +14,6 @@ services:
     environment:
       XDEBUG_CONFIG: remote_host=$XDEBUG_IP_ADDRESS remote_port=$XDEBUG_REMOTE_PORT
       DEV_ENV: 1
-    env_file:
-      - .env
     volumes:
       - wordpress_source:/var/www/html
       - ./src-wordpress/src/wp-content:/var/www/html/wp-content
