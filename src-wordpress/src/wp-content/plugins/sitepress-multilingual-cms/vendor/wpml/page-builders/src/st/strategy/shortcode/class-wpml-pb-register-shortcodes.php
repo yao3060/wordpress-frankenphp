@@ -53,7 +53,7 @@ class WPML_PB_Register_Shortcodes {
 
 		foreach ( $shortcodes as $shortcode ) {
 
-			if ( $this->should_handle_content( $shortcode['tag'] ) ) {
+			if ( $this->should_handle_content( $shortcode ) ) {
 				$shortcode_content  = $shortcode['content'];
 				$encoding           = $this->shortcode_strategy->get_shortcode_tag_encoding( $shortcode['tag'] );
 				$encoding_condition = $this->shortcode_strategy->get_shortcode_tag_encoding_condition( $shortcode['tag'] );
@@ -87,12 +87,14 @@ class WPML_PB_Register_Shortcodes {
 	}
 
 	/**
-	 * @param string $tag
+	 * @param array $shortcode
 	 *
 	 * @return bool
 	 */
-	private function should_handle_content( $tag ) {
-		return ! (
+	private function should_handle_content( $shortcode ) {
+		$tag = $shortcode['tag'];
+
+		$handle_content = ! (
 			$this->shortcode_strategy->get_shortcode_ignore_content( $tag )
 			|| in_array(
 				$this->shortcode_strategy->get_shortcode_tag_type( $tag ),
@@ -103,6 +105,20 @@ class WPML_PB_Register_Shortcodes {
 				true
 			)
 		);
+
+		/**
+		 * Allow page builders to override if the shortcode should be handled as a translatable string.
+		 *
+		 * @since 4.2
+		 * @param bool $handle_content.
+		 * @param array $shortcode {
+		 *
+		 *      @type string $tag.
+		 *      @type string $content.
+		 *      @type string $attributes.
+		 * }
+		 */
+		return apply_filters( 'wpml_pb_should_handle_content', $handle_content, $shortcode );
 	}
 
 	function get_updated_shortcode_string_title( $string_id, $shortcode, $attribute ) {

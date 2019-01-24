@@ -313,7 +313,7 @@ class WPML_Query_Parser {
 				if ( $this->sitepress->is_translated_post_type( $first_post_type ) && ! empty( $q->query_vars['name'] ) ) {
 					if ( is_post_type_hierarchical( $first_post_type ) ) {
 						$requested_page = get_page_by_path( $q->query_vars['name'], OBJECT, $first_post_type );
-						if ( $requested_page ) {
+						if ( $requested_page && 'attachment' !== $requested_page->post_type ) {
 							$q->query_vars['p'] = $this->post_translations->element_id_in( $requested_page->ID, $current_language, true );
 							unset( $q->query_vars['name'] );
 							// We need to set this to an empty string otherwise WP will derive the pagename from this.

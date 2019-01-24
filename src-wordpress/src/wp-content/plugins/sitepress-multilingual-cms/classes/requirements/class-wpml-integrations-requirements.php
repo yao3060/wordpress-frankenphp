@@ -106,10 +106,12 @@ class WPML_Integrations_Requirements {
 	}
 
 	private function update_should_create_editor_notice() {
-		$editor_translation_set = in_array( (string) $this->tm_settings['doc_translation_method'], array(
-			(string) ICL_TM_TMETHOD_EDITOR,
-			(string) ICL_TM_TMETHOD_ATE
-		), true );
+		$editor_translation_set =
+			isset( $this->tm_settings['doc_translation_method'] ) &&
+			in_array( (string) $this->tm_settings['doc_translation_method'], array(
+				(string) ICL_TM_TMETHOD_EDITOR,
+				(string) ICL_TM_TMETHOD_ATE
+			), true );
 		$requires_tm_editor     = false;
 
 		foreach ( $this->integrations as $integration_item ) {
@@ -220,6 +222,7 @@ class WPML_Integrations_Requirements {
 
 		if ( $this->has_issues( WPML_Integrations::SCOPE_WP_CORE ) ) {
 			$document_action = new WPML_Notice_Action( __( 'How to translate Gutenberg content', 'sitepress' ), self::DOCUMENTATION_LINK_BLOCK_EDITOR );
+			$document_action->set_link_target( '_blank' );
 			$notice->add_action( $document_action );
 		}
 	}

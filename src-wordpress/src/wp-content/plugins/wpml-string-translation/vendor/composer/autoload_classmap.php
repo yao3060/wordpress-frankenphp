@@ -17,7 +17,6 @@ return array(
     'WPML_Admin_Texts' => $baseDir . '/inc/admin-texts/wpml-admin-texts.class.php',
     'WPML_Autoregister_Context_Exclude' => $baseDir . '/classes/filters/autoregister/class-wpml-autoregister-context-exclude.php',
     'WPML_Autoregister_Save_Strings' => $baseDir . '/classes/filters/autoregister/class-wpml-autoregister-save-strings.php',
-    'WPML_Cache_Directory' => $vendorDir . '/wpml-shared/wpml-lib-cache/src/cache/class-wpml-cache-directory.php',
     'WPML_Change_String_Domain_Language_Dialog' => $baseDir . '/classes/string-translation-ui/class-wpml-change-string-domain-language-dialog.php',
     'WPML_Change_String_Language_Select' => $baseDir . '/classes/string-translation-ui/class-wpml-change-string-language-select.php',
     'WPML_Core_Version_Check' => $vendorDir . '/wpml-shared/wpml-lib-dependencies/src/dependencies/class-wpml-core-version-check.php',
@@ -221,6 +220,4 @@ return array(
     'WPML_Theme_String_Scanner' => $baseDir . '/inc/gettext/wpml-theme-string-scanner.class.php',
     'WPML_Translation_Priority_Select' => $baseDir . '/classes/string-translation-ui/class-wpml-translation-priority-select.php',
     'WP_Widget_Text_Icl' => $baseDir . '/classes/widgets/wp-widget-text-icl.php',
-    'xrstf\\Composer52\\AutoloadGenerator' => $vendorDir . '/xrstf/composer-php52/lib/xrstf/Composer52/AutoloadGenerator.php',
-    'xrstf\\Composer52\\Generator' => $vendorDir . '/xrstf/composer-php52/lib/xrstf/Composer52/Generator.php',
 );

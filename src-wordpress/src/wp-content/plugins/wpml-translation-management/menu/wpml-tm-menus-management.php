@@ -669,7 +669,7 @@ class WPML_TM_Menus_Management extends WPML_TM_Menus {
 
 		$basket_items_count_caption = esc_html__('Translation Basket', 'wpml-translation-management');
 		if ($basket_items_count > 0) {
-			$basket_item_count_badge = '<span id="wpml-basket-items"><span id="basket-item-count">' . $basket_items_count . '</span></span>';
+			$basket_item_count_badge = ' <span id="wpml-basket-items"><span id="basket-item-count">' . $basket_items_count . '</span></span>';
 			$basket_items_count_caption .= $basket_item_count_badge;
 		}
 

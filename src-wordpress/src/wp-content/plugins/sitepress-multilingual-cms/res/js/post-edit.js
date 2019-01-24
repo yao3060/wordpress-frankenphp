@@ -299,7 +299,7 @@ jQuery(document).ready(function ($) {
 					.success(function (res) {
 						spinner.toggleClass('is-active');
 						if (res.data) {
-							$('#icl-duplicate-post').remove();
+							is_duplicate_post = false;
 							classic_wp_editor_form.submit();
 						} else {
 							alert(icl_duplicate_data.icl_duplicate_fail);

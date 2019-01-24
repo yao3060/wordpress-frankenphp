@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc611336e6bbcb045448cccfcd8dbc160
+class ComposerStaticInit3de14de1f37643ac318777dffce5ea53
 {
     public static $prefixesPsr0 = array (
         'x' => 
@@ -28,7 +28,6 @@ class ComposerStaticInitc611336e6bbcb045448cccfcd8dbc160
         'WPML_Admin_Texts' => __DIR__ . '/../..' . '/inc/admin-texts/wpml-admin-texts.class.php',
         'WPML_Autoregister_Context_Exclude' => __DIR__ . '/../..' . '/classes/filters/autoregister/class-wpml-autoregister-context-exclude.php',
         'WPML_Autoregister_Save_Strings' => __DIR__ . '/../..' . '/classes/filters/autoregister/class-wpml-autoregister-save-strings.php',
-        'WPML_Cache_Directory' => __DIR__ . '/..' . '/wpml-shared/wpml-lib-cache/src/cache/class-wpml-cache-directory.php',
         'WPML_Change_String_Domain_Language_Dialog' => __DIR__ . '/../..' . '/classes/string-translation-ui/class-wpml-change-string-domain-language-dialog.php',
         'WPML_Change_String_Language_Select' => __DIR__ . '/../..' . '/classes/string-translation-ui/class-wpml-change-string-language-select.php',
         'WPML_Core_Version_Check' => __DIR__ . '/..' . '/wpml-shared/wpml-lib-dependencies/src/dependencies/class-wpml-core-version-check.php',
@@ -232,15 +231,13 @@ class ComposerStaticInitc611336e6bbcb045448cccfcd8dbc160
         'WPML_Theme_String_Scanner' => __DIR__ . '/../..' . '/inc/gettext/wpml-theme-string-scanner.class.php',
         'WPML_Translation_Priority_Select' => __DIR__ . '/../..' . '/classes/string-translation-ui/class-wpml-translation-priority-select.php',
         'WP_Widget_Text_Icl' => __DIR__ . '/../..' . '/classes/widgets/wp-widget-text-icl.php',
-        'xrstf\\Composer52\\AutoloadGenerator' => __DIR__ . '/..' . '/xrstf/composer-php52/lib/xrstf/Composer52/AutoloadGenerator.php',
-        'xrstf\\Composer52\\Generator' => __DIR__ . '/..' . '/xrstf/composer-php52/lib/xrstf/Composer52/Generator.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixesPsr0 = ComposerStaticInitc611336e6bbcb045448cccfcd8dbc160::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitc611336e6bbcb045448cccfcd8dbc160::$classMap;
+            $loader->prefixesPsr0 = ComposerStaticInit3de14de1f37643ac318777dffce5ea53::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit3de14de1f37643ac318777dffce5ea53::$classMap;
 
         }, null, ClassLoader::class);
     }

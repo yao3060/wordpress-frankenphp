@@ -310,6 +310,7 @@ return array(
     'WPML_TM_Upgrade_Loader' => $baseDir . '/classes/upgrade/class-wpml-tm-upgrade-loader.php',
     'WPML_TM_Upgrade_Loader_Factory' => $baseDir . '/classes/upgrade/class-wpml-tm-upgrade-loader-factory.php',
     'WPML_TM_Upgrade_Translation_Priorities_For_Posts' => $baseDir . '/classes/upgrade/commands/class-wpml-tm-upgrade-translation-priorities-for-posts.php',
+    'WPML_TM_Validate_HTML' => $baseDir . '/classes/xliff/class-wpml-tm-validate-html.php',
     'WPML_TM_WP_Query' => $baseDir . '/classes/menu/dashboard/class-wpml-tm-wp-query.php',
     'WPML_TM_Wizard_For_Admin' => $baseDir . '/classes/wizard/class-wpml-tm-wizard-for-admin.php',
     'WPML_TM_Wizard_For_Manager' => $baseDir . '/classes/wizard/class-wpml-tm-wizard-for-manager.php',
@@ -457,6 +458,4 @@ return array(
     'WP_Async_Request' => $vendorDir . '/a5hleyrich/wp-background-processing/classes/wp-async-request.php',
     'WP_Background_Process' => $vendorDir . '/a5hleyrich/wp-background-processing/classes/wp-background-process.php',
     'wpml_zip' => $baseDir . '/inc/wpml_zip.php',
-    'xrstf\\Composer52\\AutoloadGenerator' => $vendorDir . '/xrstf/composer-php52/lib/xrstf/Composer52/AutoloadGenerator.php',
-    'xrstf\\Composer52\\Generator' => $vendorDir . '/xrstf/composer-php52/lib/xrstf/Composer52/Generator.php',
 );

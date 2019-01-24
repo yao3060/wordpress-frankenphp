@@ -1795,7 +1795,7 @@ final class WP_Installer {
 
 				foreach ( $package['products'] as $product ) {
 
-					if ( $subscription_type == $product['subscription_type'] ) {
+					if ( $subscription_type === (int) $product['subscription_type'] || $subscription_type === (int) $product['subscription_type_equivalent'] ) {
 						$has_top_package = true;
 						if ( $product['name'] == $product_name ) {
 							return $available = true;
@@ -1807,7 +1807,7 @@ final class WP_Installer {
 				if ( ! empty( $package['sub-packages'] ) ) {
 					foreach ( $package['sub-packages'] as $sub_package ) {
 						foreach ( $sub_package['products'] as $product ) {
-							if ( $product['name'] == $product_name && ( $subscription_type == $product['subscription_type'] || $has_top_package ) ) {
+							if ( $product['name'] == $product_name && ( $subscription_type === (int) $product['subscription_type'] || $subscription_type === (int) $product['subscription_type_equivalent'] || $has_top_package ) ) {
 								return $available = true;
 							}
 						}
@@ -2195,22 +2195,24 @@ final class WP_Installer {
 
 	}
 
-	public function custom_plugins_api_call( $false, $action, $args ) {
+	public function custom_plugins_api_call( $result, $action, $args ) {
 
 		if ( $action == 'plugin_information' ) {
 
 			$plugins      = get_plugins();
-			$plugin_names = array();
+			$installed_plugins = array();
 			foreach ( $plugins as $plugin_id => $plugin ) {
 				// plugins by WP slug which (plugin folder) which can be different
 				// will use this to compare by title
-				$plugin_names[ dirname( $plugin_id ) ] = array(
-					'name'  => $plugin['Name'],
-					'title' => $plugin['Title'],
+				$installed_plugins[ dirname( $plugin_id ) ] = array(
+					'name'    => $plugin['Name'],
+					'title'   => $plugin['Title'],
+					'is_lite' => false !== stripos( $plugin['Version'], '-lite' ),
 				);
 			}
 
-			$slug = $args->slug;
+			$slug          = $args->slug;
+			$custom_plugin = false;
 
 			foreach ( $this->settings['repositories'] as $repository_id => $repository ) {
 
@@ -2229,38 +2231,49 @@ final class WP_Installer {
 							$download = $this->settings['repositories'][ $repository_id ]['data']['downloads']['plugins'][ $plugin_slug ];
 
 							if ( $download['slug'] == $slug ||
-							     isset( $plugin_names[ $slug ] ) && (
-								     $plugin_names[ $slug ]['name'] == $download['name'] ||
-								     $plugin_names[ $slug ]['title'] == $download['name']
+							     isset( $installed_plugins[ $slug ] ) && (
+								     $installed_plugins[ $slug ]['name'] == $download['name'] ||
+								     $installed_plugins[ $slug ]['title'] == $download['name']
 							     )
 							) {
 
-                                if ( $this->should_fallback_under_wp_org_repo( $download, $site_key ) ) {
-									return false; // use data from wordpress.org
+								$this_plugin           = new stdClass();
+								$this_plugin->external = true;
+
+								$this_plugin->is_free               = $this->should_fallback_under_wp_org_repo( $download,
+									$site_key );
+								$this_plugin->is_lite               = ! empty( $download['is-lite'] );
+								$this_plugin->is_download_available = $this->is_product_available_for_download( $product['name'],
+									$repository_id );
+
+								if ( $custom_plugin ) {
+									if ( ( ! $custom_plugin->is_free && $this_plugin->is_free )
+									     || ( ! $custom_plugin->is_lite && $custom_plugin->is_download_available )
+									     || ( $custom_plugin->is_lite && ! $this_plugin->is_download_available && $installed_plugins[ $slug ]['is_lite'] )
+									) {
+										continue;
+									}
 								}
+								$custom_plugin = $this_plugin;
 
-								$res           = new stdClass();
-								$res->external = true;
-
-								$res->name           = $download['name'];
-								$res->slug           = $slug;
-								$res->version        = $download['version'];
-								$res->author         = '';
-								$res->author_profile = '';
-								$res->last_updated   = $download['date'];
-                                $res->tested         = isset($download['tested'])?$download['tested']:'';
+								$custom_plugin->name           = $download['name'];
+								$custom_plugin->slug           = $slug;
+								$custom_plugin->version        = $download['version'];
+								$custom_plugin->author         = '';
+								$custom_plugin->author_profile = '';
+								$custom_plugin->last_updated   = $download['date'];
+								$custom_plugin->tested         = isset( $download['tested'] ) ? $download['tested'] : '';
 
 								if ( $site_key ) {
-									$res->download_link = $this->append_site_key_to_download_url( $download['url'], $site_key, $repository_id );
+									$custom_plugin->download_link = $this->append_site_key_to_download_url( $download['url'],
+										$site_key, $repository_id );
 								}
 
-								$res->homepage = $repository['data']['url'];
-								$res->sections = array(
+								$custom_plugin->homepage = $repository['data']['url'];
+								$custom_plugin->sections = array(
 									'Description' => $download['description'],
 									'Changelog'   => $download['changelog']
 								);
-
-								return $res;
 
 							}
 
@@ -2272,9 +2285,17 @@ final class WP_Installer {
 
 			}
 
+			if ( $custom_plugin ) {
+				if ( $custom_plugin->is_free ) {
+					$result = false;
+				} else {
+					$result = $custom_plugin;
+				}
+			}
+
 		}
 
-		return $false;
+		return $result;
 
 	}
 

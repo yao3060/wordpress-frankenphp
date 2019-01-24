@@ -29,11 +29,15 @@ class WPML_TM_MCS_Pagination_Ajax {
 	 */
 	public function update_mcs_cf() {
 		if ( isset( $_POST['nonce'] ) && wp_verify_nonce( $_POST['nonce'], 'icl_' . $_POST['type'] . '_translation_nonce' ) ) {
-			$items_per_page = intval( $_POST['items_per_page'] );
-			$paged          = intval( $_POST['paged'] );
-			$search_string  = isset( $_POST['search'] ) ? sanitize_text_field( $_POST['search'] ) : '';
+			$items_per_page     = intval( $_POST['items_per_page'] );
+			$paged              = intval( $_POST['paged'] );
+			$search_string      = isset( $_POST['search'] ) ? sanitize_text_field( $_POST['search'] ) : '';
+			$show_system_fields = isset( $_POST['show_system_fields'] ) && filter_var( $_POST['show_system_fields'], FILTER_VALIDATE_BOOLEAN );
 
 			$settings_factory = new WPML_Custom_Field_Setting_Factory( $this->icl_translation_management );
+
+			$settings_factory->show_system_fields = $show_system_fields;
+
 			$unlock_button_ui = new WPML_UI_Unlock_Button();
 
 			if ( 'cf' === $_POST['type'] ) {

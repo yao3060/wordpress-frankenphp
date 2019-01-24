@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd4c6b416bae3b7d50fb99ddc4701716d
+class ComposerStaticInit18e405bc8ea408b36308e6694d7aa0bf
 {
     public static $files = array (
         'b45b351e6b6f7487d819961fef2fda77' => __DIR__ . '/..' . '/jakeasmith/http_build_url/src/http_build_url.php',
@@ -325,6 +325,7 @@ class ComposerStaticInitd4c6b416bae3b7d50fb99ddc4701716d
         'WPML_TM_Upgrade_Loader' => __DIR__ . '/../..' . '/classes/upgrade/class-wpml-tm-upgrade-loader.php',
         'WPML_TM_Upgrade_Loader_Factory' => __DIR__ . '/../..' . '/classes/upgrade/class-wpml-tm-upgrade-loader-factory.php',
         'WPML_TM_Upgrade_Translation_Priorities_For_Posts' => __DIR__ . '/../..' . '/classes/upgrade/commands/class-wpml-tm-upgrade-translation-priorities-for-posts.php',
+        'WPML_TM_Validate_HTML' => __DIR__ . '/../..' . '/classes/xliff/class-wpml-tm-validate-html.php',
         'WPML_TM_WP_Query' => __DIR__ . '/../..' . '/classes/menu/dashboard/class-wpml-tm-wp-query.php',
         'WPML_TM_Wizard_For_Admin' => __DIR__ . '/../..' . '/classes/wizard/class-wpml-tm-wizard-for-admin.php',
         'WPML_TM_Wizard_For_Manager' => __DIR__ . '/../..' . '/classes/wizard/class-wpml-tm-wizard-for-manager.php',
@@ -472,15 +473,13 @@ class ComposerStaticInitd4c6b416bae3b7d50fb99ddc4701716d
         'WP_Async_Request' => __DIR__ . '/..' . '/a5hleyrich/wp-background-processing/classes/wp-async-request.php',
         'WP_Background_Process' => __DIR__ . '/..' . '/a5hleyrich/wp-background-processing/classes/wp-background-process.php',
         'wpml_zip' => __DIR__ . '/../..' . '/inc/wpml_zip.php',
-        'xrstf\\Composer52\\AutoloadGenerator' => __DIR__ . '/..' . '/xrstf/composer-php52/lib/xrstf/Composer52/AutoloadGenerator.php',
-        'xrstf\\Composer52\\Generator' => __DIR__ . '/..' . '/xrstf/composer-php52/lib/xrstf/Composer52/Generator.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixesPsr0 = ComposerStaticInitd4c6b416bae3b7d50fb99ddc4701716d::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitd4c6b416bae3b7d50fb99ddc4701716d::$classMap;
+            $loader->prefixesPsr0 = ComposerStaticInit18e405bc8ea408b36308e6694d7aa0bf::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit18e405bc8ea408b36308e6694d7aa0bf::$classMap;
 
         }, null, ClassLoader::class);
     }

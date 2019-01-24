@@ -55,9 +55,19 @@ abstract class WPML_TM_MCS_Custom_Field_Settings_Menu {
 				<h3><?php echo esc_html( $this->get_title() ) ?></h3>
 				<p>
 					<?php
+					// We need htmlspecialchars() here only for testing, as DOMDocument::loadHTML() cannot parse url with '&'.
 					$toggle_system_fields = array(
-						'url'  => add_query_arg( array( 'show_system_fields' => ! $this->settings_factory->show_system_fields ) ),
-						'text' => $this->settings_factory->show_system_fields ? __( 'Hide system fields', 'wpml-translation-management' ) : __( 'Show system fields', 'wpml-translation-management' ),
+						'url'  => htmlspecialchars(
+							add_query_arg(
+								array(
+									'show_system_fields' => ! $this->settings_factory->show_system_fields,
+								),
+								admin_url( 'admin.php?page=' . WPML_TM_FOLDER . WPML_Translation_Management::PAGE_SLUG_SETTINGS ) . '#ml-content-setup-sec-' . $this->kind_shorthand()
+							)
+						),
+						'text' => $this->settings_factory->show_system_fields ?
+							__( 'Hide system fields', 'wpml-translation-management' ) :
+							__( 'Show system fields', 'wpml-translation-management' ),
 					);
 					?>
 					<a href="<?php echo esc_url( $toggle_system_fields['url'] ); ?>"><?php echo esc_html( $toggle_system_fields['text'] ); ?></a>

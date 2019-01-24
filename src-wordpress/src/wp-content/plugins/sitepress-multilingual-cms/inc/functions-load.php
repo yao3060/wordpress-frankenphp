@@ -91,6 +91,10 @@ function wpml_load_post_translation( $is_admin, $settings ) {
 }
 
 function wpml_load_request_handler( $is_admin, $active_language_codes, $default_language ) {
+	/**
+	 * @var WPML_Request       $wpml_request_handler
+	 * @var WPML_URL_Converter $wpml_url_converter
+	 */
 	global $wpml_request_handler, $wpml_url_converter;
 
 	if ( ! isset( $wpml_request_handler ) ) {
@@ -101,7 +105,11 @@ function wpml_load_request_handler( $is_admin, $active_language_codes, $default_
 	$wpml_cookie = new WPML_Cookie();
 	$wp_api      = new WPML_WP_API();
 
-	if ( $is_admin === true ) {
+	$rest_request_analyze = new WPML_REST_Request_Analyze( $wpml_url_converter, $active_language_codes );
+	$is_backend_rest      = $rest_request_analyze->is_rest_request()
+	                        && ! $rest_request_analyze->should_load_on_frontend();
+
+	if ( $is_admin === true || $is_backend_rest ) {
 		$wpml_request_handler = new WPML_Backend_Request(
 			$wpml_url_converter,
 			$active_language_codes,

@@ -273,6 +273,7 @@ class WPML_TM_ATE_Jobs_Actions implements IWPML_Action {
 			$translation_jobs = $this->get_local_jobs_from_posts( $this->current_screen->get_posts() );
 			if ( $translation_jobs ) {
 				$this->update_jobs( null, $translation_jobs, true );
+				unset( $_POST['post_ID'] );
 			}
 		}
 	}

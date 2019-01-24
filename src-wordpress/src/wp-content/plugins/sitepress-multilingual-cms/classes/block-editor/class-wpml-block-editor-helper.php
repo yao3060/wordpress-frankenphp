@@ -23,7 +23,10 @@ class WPML_Block_Editor_Helper {
 		}
 
 		if ( self::is_classic_editor_plugin_active() ) {
-			return get_option( 'classic-editor-replace' ) === 'no-replace';
+			$editor_option       = get_option( 'classic-editor-replace' );
+			$block_editor_active = array( 'no-replace', 'block' );
+
+			return in_array( $editor_option, $block_editor_active, true );
 		}
 
 		return true;
@@ -36,7 +39,8 @@ class WPML_Block_Editor_Helper {
 	 * @return bool
 	 */
 	public static function is_edit_post() {
-		return get_current_screen() && 'post' === get_current_screen()->base && self::is_active();
+		$current_screen = get_current_screen();
+		return  $current_screen && 'post' === $current_screen->base && self::is_active() && self::is_block_editor( $current_screen );
 	}
 
 	/**
@@ -54,5 +58,13 @@ class WPML_Block_Editor_Helper {
 		}
 
 		return false;
+	}
+
+	public static function is_block_editor( $current_screen ) {
+		if ( version_compare( $GLOBALS['wp_version'], '5.0-beta', '>' ) ) {
+			return $current_screen->is_block_editor();
+		} else {
+			return false;
+		}
 	}
 }

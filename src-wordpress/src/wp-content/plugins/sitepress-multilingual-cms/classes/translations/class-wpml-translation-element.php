@@ -105,7 +105,10 @@ abstract class WPML_Translation_Element extends WPML_SP_User {
 					continue;
 				}
 
-				$this->element_translations[ $language_code ] = $this->get_new_instance( $element_data );
+				try {
+					$this->element_translations[ $language_code ] = $this->get_new_instance( $element_data );
+				} catch ( Exception $e ) {
+				}
 			}
 		}
 

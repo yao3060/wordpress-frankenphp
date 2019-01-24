@@ -85,7 +85,7 @@ class WPML_REST_Posts_Hooks implements IWPML_Action {
 
 			$term_ids = $this->get_translated_term_ids( $terms, $tax, $translatable_taxs, $current_lang );
 			wp_set_object_terms( $post->ID, $term_ids, $tax->name );
-			$data[ $tax_rest_base ] = array_filter( $term_ids );
+			$data[ $tax_rest_base ] = $term_ids;
 		}
 
 		$this->sitepress->switch_lang( null );
@@ -113,6 +113,6 @@ class WPML_REST_Posts_Hooks implements IWPML_Action {
 			}
 		}
 
-		return $term_ids;
+		return array_values( array_filter( $term_ids ) );
 	}
 }
