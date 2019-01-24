@@ -37,9 +37,9 @@ define('DB_CHARSET', 'utf8');
 /** The Database Collate type. Don't change this if in doubt. */
 define('DB_COLLATE', '');
 
-define('WP_HOME','http://docker.local:8080');
+define('WP_HOME', getenv('WORDPRESS_SITE_URL') ?? 'http://docker.local:8080');
 
-define('WP_SITEURL','http://docker.local:8080');
+define('WP_SITEURL', getenv('WORDPRESS_SITE_URL') ?? 'http://docker.local:8080');
 
 /**#@+
  * Authentication Unique Keys and Salts.

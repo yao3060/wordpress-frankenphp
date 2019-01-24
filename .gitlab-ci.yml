@@ -42,9 +42,8 @@ deploy-staging-job:
     - ./install
     - ./build
     - ./test
-    #- ./deploy/scripts/deploy-to.sh [ staging-1 120.55.113.220 ; staging-2 47.90.34.3 ]
-    - echo "pushed successfully" 
-  when: manual
+    - ./deploy/scripts/deploy-to.sh 47.90.34.3 22
+    - echo "pushed successfully"  
   
 ###########################################################################
 
