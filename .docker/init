@@ -1,0 +1,9 @@
+#!/bin/bash
+
+
+# run database migrations
+# /var/www/html/vendor/bin/wp db:migrate
+
+# set project ownership to www-data
+# chown -R www-data:www-data /var/www/html
+

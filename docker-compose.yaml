@@ -1,0 +1,96 @@
+services:
+
+  wordpress_apache:
+    image: wordpress
+    # 如果要在生产环境中运行，请取消注释以下行
+    restart: always
+    environment:
+      SERVER_NAME: ${SERVER_NAME:-:80}
+      WORDPRESS_DB_HOST: wordpress_db
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER:-root}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD:-root}
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME:-domain}
+      WP_REDIS_HOST: wordpress_cache
+    ports:
+      - "${WORDPRESS_HTTP_PORT:-8081}:80"
+    volumes:
+      - ./src:/var/www/html:delegated
+    # 在生产环境中注释以下行，它允许在 dev 中使用清晰可读日志
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+          pids: 100
+        reservations:
+          cpus: '1'
+          memory: 512M
+    tty: true
+
+  wordpress_frankenphp:
+    # image: dunglas/frankenphp
+    # 如果要使用自定义 Dockerfile，请取消注释以下行
+    build:
+      context: .
+      dockerfile: ./.docker/Dockerfile
+    # 如果要在生产环境中运行，请取消注释以下行
+    restart: always
+    environment:
+      SERVER_NAME: ${SERVER_NAME:-:80}
+      WORDPRESS_DB_HOST: wordpress_db
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER:-root}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD:-root}
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME:-domain}
+      WP_REDIS_HOST: wordpress_cache
+      FRANKENPHP_CONFIG: ${FRANKENPHP_CONFIG:-"worker index.php"}
+    ports:
+      - "${WORDPRESS_HTTP_PORT:-8080}:80"
+      # - "8080:80" # HTTP
+      # - "8443:443" # HTTPS
+      # - "8443:443/udp" # HTTP/3
+    volumes:
+      - ./src:/var/www/html:delegated
+      - caddy_data:/data
+      - caddy_config:/config
+    # 在生产环境中注释以下行，它允许在 dev 中使用清晰可读日志
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+          pids: 100
+        reservations:
+          cpus: '1'
+          memory: 512M
+    tty: true
+
+  wordpress_db:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_DATABASE: domain
+      MYSQL_ROOT_PASSWORD: ${WORDPRESS_DB_PASSWORD:-root}
+    volumes:
+      - wordpress-db:/var/lib/mysql
+
+  wordpress_cache:
+    image: redis:alpine
+    restart: always
+    volumes:
+      - wordpress-cache:/data
+
+  adminer:
+    image: adminer
+    environment:
+      - ADMINER_DEFAULT_SERVER=wordpress_db
+    restart: "no"
+    ports:
+      - "${ADMINER_HTTP_PORT:-8090}:8080"
+
+
+volumes:
+  wordpress-db:
+  wordpress-cache:
+  # Caddy 证书和配置所需的挂载目录
+  caddy_data:
+  caddy_config:
