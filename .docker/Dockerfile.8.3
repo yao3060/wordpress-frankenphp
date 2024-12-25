@@ -1,7 +1,7 @@
-ARG PHP_VERSION=8.4
+ARG PHP_VERSION=8.3
 ARG USER=www-data
 
-FROM dunglas/frankenphp:builder AS builder
+FROM dunglas/frankenphp:latest-builder-php${PHP_VERSION} as builder
 
 # Copy xcaddy in the builder image
 COPY --from=caddy:builder /usr/bin/xcaddy /usr/bin/xcaddy
@@ -37,7 +37,7 @@ RUN CGO_ENABLED=1 \
         --with github.com/dunglas/vulcain/caddy
         # Add extra Caddy modules here
 
-FROM dunglas/frankenphp AS runner
+FROM dunglas/frankenphp:latest-php${PHP_VERSION}  AS runner
 
 # Replace the official binary by the one contained your custom modules
 COPY --from=builder /usr/local/bin/frankenphp /usr/local/bin/frankenphp
@@ -88,7 +88,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     chmod +x wp-cli.phar && \
     mv wp-cli.phar /usr/local/bin/wp
 
-COPY ./.docker/caddy/Caddyfile /etc/caddy/Caddyfile
+COPY ./.docker/caddy/Caddyfile.8.3 /etc/caddy/Caddyfile
 
 # Running as a Non-Root User
 # @see https://frankenphp.dev/docs/docker/#running-as-a-non-root-user
