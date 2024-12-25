@@ -1,19 +1,40 @@
+ARG PHP_VERSION=8.4
+ARG USER=www-data
+
 FROM dunglas/frankenphp:builder AS builder
 
 # Copy xcaddy in the builder image
 COPY --from=caddy:builder /usr/bin/xcaddy /usr/bin/xcaddy
 
 # CGO must be enabled to build FrankenPHP
+# 启用 CGO（C Go），允许 Go 代码调用 C 代码，这对于 PHP 集成是必需的
 RUN CGO_ENABLED=1 \
+    # 设置二进制文件的 capabilities，允许服务器绑定特权端口（如 80/443）
     XCADDY_SETCAP=1 \
+    # 设置 Go 编译标志
+    # - -w -s：减小二进制文件大小（去除调试信息）
+    # - nobadger,nomysql,nopgx：排除不需要的数据库驱动
     XCADDY_GO_BUILD_FLAGS="-ldflags='-w -s' -tags=nobadger,nomysql,nopgx" \
+    # 设置 C 编译器标志，包含 PHP 的头文件和库文件路径， 这些是编译 PHP 扩展所必需的。
     CGO_CFLAGS=$(php-config --includes) \
     CGO_LDFLAGS="$(php-config --ldflags) $(php-config --libs)" \
     xcaddy build \
         --output /usr/local/bin/frankenphp \
         --with github.com/dunglas/frankenphp=./ \
         --with github.com/dunglas/frankenphp/caddy=./caddy/ \
-        --with github.com/dunglas/caddy-cbrotli
+        --with github.com/dunglas/caddy-cbrotli \
+        # Mercure and Vulcain are included in the official build, but feel free to remove them
+        # Mercure 是一个实时通信协议，
+        # 允许服务器向客户端推送更新，
+        # 可以用于实现实时通知、聊天、实时数据更新等功能，
+        # 比传统的 WebSocket 更轻量和灵活，
+        # 特别适合需要实时更新的 WordPress 应用（如实时评论、通知等）
+        # --with github.com/dunglas/mercure/caddy \
+        # Vulcain 是一个协议，用于优化 HTTP API 的性能，
+        # 允许客户端预先获取（preload）相关资源，
+        # 减少不必要的数据传输，
+        # 可以显著提升 API 的性能和响应速度
+        --with github.com/dunglas/vulcain/caddy
         # Add extra Caddy modules here
 
 FROM dunglas/frankenphp AS runner
@@ -28,7 +49,7 @@ RUN install-php-extensions \
 	gd \
 	intl \
 	zip \
-	opcache \ 
+	opcache \
     redis \
     mysqli
 
@@ -68,3 +89,16 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     mv wp-cli.phar /usr/local/bin/wp
 
 COPY ./.docker/Caddyfile /etc/caddy/Caddyfile
+
+# Running as a Non-Root User
+# @see https://frankenphp.dev/docs/docker/#running-as-a-non-root-user
+# @see https://frankenphp.dev/docs/docker/#running-with-no-capabilities
+RUN \
+	# Use "adduser -D ${USER}" for alpine based distros
+	# useradd ${USER}; \
+    # Add additional capability to bind to port 80 and 443
+    setcap -r /usr/local/bin/frankenphp; \
+    # Give write access to /data/caddy and /config/caddy
+    chown -R www-data:www-data /data/caddy && chown -R www-data:www-data /config/caddy && chown -R www-data:www-data /var/www/html
+
+USER www-data
