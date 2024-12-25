@@ -86,7 +86,8 @@ WORKDIR /var/www/html
 # Adding WordPress CLI
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x wp-cli.phar && \
-    mv wp-cli.phar /usr/local/bin/wp
+    mv wp-cli.phar /usr/local/bin/wp && \
+    mkdir -p /var/www/.wp-cli
 
 COPY ./.docker/caddy/Caddyfile /etc/caddy/Caddyfile
 
@@ -99,6 +100,6 @@ RUN \
     # Add additional capability to bind to port 80 and 443
     setcap -r /usr/local/bin/frankenphp; \
     # Give write access to /data/caddy and /config/caddy
-    chown -R www-data:www-data /data/caddy && chown -R www-data:www-data /config/caddy && chown -R www-data:www-data /var/www/html
+    chown -R www-data:www-data /data/caddy && chown -R www-data:www-data /config/caddy && chown -R www-data:www-data /var/www
 
 USER www-data
