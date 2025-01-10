@@ -104,7 +104,8 @@ $table_prefix = 'wp_';
 define( 'WP_DEBUG', false );
 
 /* Add any custom values between this line and the "stop editing" line. */
-
+define( 'WP_SITEURL', 'http://' . $_SERVER['HTTP_HOST']  );
+define( 'WP_HOME', 'http://' . $_SERVER['HTTP_HOST']  );
 define( 'WP_REDIS_HOST', getenv_docker( 'WORDPRESS_CACHE_HOST', 'wordpress_cache' ) );
 
 /* That's all, stop editing! Happy publishing. */

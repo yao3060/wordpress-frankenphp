@@ -10,7 +10,6 @@
 	{$CADDY_GLOBAL_OPTIONS}
 
 	frankenphp {
-		# worker index.php
 		{$FRANKENPHP_CONFIG}
 	}
 }

@@ -2,3 +2,4 @@
 .air.toml
 .DS_Store
 src
+/vendor/

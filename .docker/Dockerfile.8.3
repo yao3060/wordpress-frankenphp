@@ -103,3 +103,5 @@ RUN \
     chown -R www-data:www-data /data/caddy && chown -R www-data:www-data /config/caddy && chown -R www-data:www-data /var/www
 
 USER www-data
+
+CMD ["frankenphp", "run", "--config", "/etc/caddy/Caddyfile"]
