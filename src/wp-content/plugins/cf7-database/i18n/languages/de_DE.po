@@ -1,0 +1,306 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Contact Form 7 Database Lite\n"
+"POT-Creation-Date: 2024-03-20 08:36+0700\n"
+"PO-Revision-Date: 2024-03-20 08:49+0700\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.2\n"
+"X-Poedit-Basepath: ../..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: cf7-database.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+"X-Poedit-SearchPathExcluded-1: admin/apps/node_modules\n"
+
+#: admin/Ajax.php:78
+msgid "success"
+msgstr "Erfolg"
+
+#: admin/Ajax.php:90 admin/Ajax.php:166 admin/Ajax.php:235 admin/Ajax.php:275
+#: admin/Ajax.php:278 admin/Ajax.php:320
+msgid "Opp! Something went wrong."
+msgstr "Upps! Etwas ist schief gelaufen."
+
+#: admin/Ajax.php:94 admin/Ajax.php:170 admin/Ajax.php:239
+msgid "Error exception."
+msgstr "Fehlerausnahme."
+
+#: admin/Ajax.php:103 admin/Ajax.php:179
+msgid "Error."
+msgstr "Fehler."
+
+#: admin/Ajax.php:154
+msgid "Filter date success"
+msgstr "Filterdatum erfolgreich"
+
+#: admin/Ajax.php:224
+msgid "Search type success"
+msgstr "Erfolgreicher Suchtyp"
+
+#: admin/Ajax.php:248 admin/Ajax.php:291 admin/Ajax.php:333 admin/Ajax.php:374
+#: admin/Ajax.php:454
+msgid "Error"
+msgstr "Fehler"
+
+#: admin/Ajax.php:271 admin/Ajax.php:273
+msgid "Delete success"
+msgstr "Erfolgreich löschen"
+
+#: admin/Ajax.php:282 admin/Ajax.php:324 admin/Ajax.php:365 admin/Ajax.php:445
+msgid "Error exception"
+msgstr "Fehlerausnahme"
+
+#: admin/Ajax.php:318
+msgid "Edit row success"
+msgstr "Zeilenerfolg bearbeiten"
+
+#: admin/Ajax.php:358 admin/Ajax.php:427
+msgid "Settings saved."
+msgstr "Einstellungen gespeichert."
+
+#: admin/Ajax.php:440
+msgid "Error save data."
+msgstr "Fehler beim Speichern von Daten."
+
+#: admin/Fallback.php:11
+msgid ""
+"It looks like you have another Contact Form 7 Database version installed, "
+"please delete it before activating this new version. All of the settings and "
+"data are still preserved."
+msgstr ""
+"Offenbar haben Sie eine andere Version der Contact Form 7-Datenbank "
+"installiert. Bitte löschen Sie diese, bevor Sie diese neue Version "
+"aktivieren. Alle Einstellungen und Daten bleiben weiterhin erhalten."
+
+#: admin/I18n.php:22
+msgid "Save Changes"
+msgstr "Änderungen speichern"
+
+#: admin/I18n.php:23
+msgid "Contact Form 7 Database"
+msgstr "Contact Form 7 Database"
+
+#: admin/I18n.php:24 admin/init.php:29
+msgid "Go Pro"
+msgstr "Pro erwerben"
+
+#: admin/I18n.php:25
+msgid "Grid View: This feature is available in Pro version."
+msgstr "Rasteransicht: Diese Funktion ist in der Pro-Version verfügbar."
+
+#: admin/I18n.php:26
+msgid "Filter: This feature is available in Pro version."
+msgstr "Filter: Diese Funktion ist in der Pro-Version verfügbar."
+
+#: admin/I18n.php:27
+msgid "Choose Form"
+msgstr "Formular auswählen"
+
+#: admin/I18n.php:28
+msgid "Loading..."
+msgstr "Lade..."
+
+#: admin/I18n.php:29
+msgid "Export to CSV: This feature is available in Pro version."
+msgstr "Als CSV exportieren: Diese Funktion ist in der Pro-Version verfügbar."
+
+#: admin/I18n.php:30
+msgid "Filter"
+msgstr "Filter"
+
+#: admin/I18n.php:31
+msgid "Type something..."
+msgstr "Geben Sie etwas ein..."
+
+#: admin/I18n.php:32
+msgid "Show"
+msgstr "Anzeigen"
+
+#: admin/I18n.php:33
+msgid "items of"
+msgstr "Artikel von"
+
+#: admin/I18n.php:34
+msgid "Column Settings"
+msgstr "Spalten Einstellungen"
+
+#: admin/I18n.php:35
+msgid "Table Settings"
+msgstr "Tabellen Einstellungen"
+
+#: admin/I18n.php:36
+msgid "Sort Column"
+msgstr "Spalte sortieren"
+
+#: admin/I18n.php:37
+msgid "Bordered"
+msgstr "Umrandet (Rand)"
+
+#: admin/I18n.php:38
+msgid "Title"
+msgstr "Titel"
+
+#: admin/I18n.php:39
+msgid "Column Header"
+msgstr "Spaltenüberschrift"
+
+#: admin/I18n.php:40
+msgid "Expandable"
+msgstr "Erweiterbar"
+
+#: admin/I18n.php:41
+msgid "Fixed Header"
+msgstr "Fixierter Header"
+
+#: admin/I18n.php:42
+msgid "Ellipsis"
+msgstr "Ellipsis"
+
+#: admin/I18n.php:43
+msgid "Footer"
+msgstr "Footer"
+
+#: admin/I18n.php:44
+msgid "Checkbox"
+msgstr "Checkbox"
+
+#: admin/I18n.php:45
+msgid "Size"
+msgstr "Größe"
+
+#: admin/I18n.php:46
+msgid "Default"
+msgstr "Standard"
+
+#: admin/I18n.php:47
+msgid "Middle"
+msgstr "Mitte"
+
+#: admin/I18n.php:48
+msgid "Small"
+msgstr "Klein"
+
+#: admin/I18n.php:49
+msgid "Table Scroll"
+msgstr "Tabellenrolle"
+
+#: admin/I18n.php:50
+msgid "Scroll"
+msgstr "Scrollen"
+
+#: admin/I18n.php:51
+msgid "Fixed Columns"
+msgstr "Feste Spalten"
+
+#: admin/I18n.php:52
+msgid "Pagination Top"
+msgstr "Paginierung oben"
+
+#: admin/I18n.php:53
+msgid "Top Left"
+msgstr "Oben links"
+
+#: admin/I18n.php:54
+msgid "Top Center"
+msgstr "Oben zentriert"
+
+#: admin/I18n.php:55
+msgid "Top Right"
+msgstr "Oben rechts"
+
+#: admin/I18n.php:56
+msgid "Pagination Bottom"
+msgstr "Paginierung unten"
+
+#: admin/I18n.php:57
+msgid "Bottom Left"
+msgstr "Unten links"
+
+#: admin/I18n.php:58
+msgid "Bottom Center"
+msgstr "Unten zentriert"
+
+#: admin/I18n.php:59
+msgid "Bottom Right"
+msgstr "Unten rechts"
+
+#: admin/I18n.php:60
+msgid "None"
+msgstr "Nichts"
+
+#: admin/I18n.php:61
+msgid "ACTION"
+msgstr "Aktion"
+
+#: admin/I18n.php:62
+msgid "Edit Information"
+msgstr "Informationen bearbeiten"
+
+#: admin/I18n.php:63
+msgid "Content Information"
+msgstr "Inhaltsinformationen"
+
+#: admin/I18n.php:64
+msgid "Sure to delete?"
+msgstr "Sicher löschen?"
+
+#: admin/I18n.php:65
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: admin/I18n.php:66
+msgid "OK"
+msgstr "OK"
+
+#: admin/I18n.php:67
+msgid "Delete Selected"
+msgstr "Ausgewählte löschen"
+
+#: admin/I18n.php:68
+msgid "Fields"
+msgstr "Felder"
+
+#: admin/assets/dist/js/main.js:23
+msgid ""
+"\n"
+"Arguments: "
+msgstr ""
+"\n"
+"Argumente: "
+
+#: admin/init.php:18
+msgid "View Database"
+msgstr "Datenbank anzeigen"
+
+#. Plugin Name of the plugin/theme
+msgid "Contact Form 7 Database Lite"
+msgstr "Contact Form 7 Database Lite"
+
+#. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "http://ninjateam.org"
+msgstr "http://ninjateam.org"
+
+#. Description of the plugin/theme
+msgid ""
+"Contact Form 7 Database is a plugin for WordPress allows you save all "
+"submitted from contact form 7 to database and display in Contact > Database "
+"menu"
+msgstr ""
+"Contact Form 7 Database ist ein Plugin für WordPress, mit dem Sie alle von "
+"Contact Form 7 übermittelten Daten in der Datenbank speichern und im Menü "
+"„Kontakt“ > „Datenbank“ anzeigen können"
+
+#. Author of the plugin/theme
+msgid "NinjaTeam"
+msgstr "NinjaTeam"

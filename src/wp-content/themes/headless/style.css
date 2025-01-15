@@ -1,0 +1,154 @@
+/*
+Theme Name: Headless
+Theme URI: http://ozanonay.com/blog/blogging/headless-wordpress-theme
+Description: Headless WordPress theme is clean, pixel-perfect and grid-based. Since content is king, the 'header' is placed at the bottom leaving more content above the fold.
+Version: 0.9.2
+Author: Ozan Onay
+Author URI: http://ozanonay.com/
+Tags: simple, minimalist, fixed width, two columns, right sidebar, widget ready, valid CSS, valid XHTML, gray, white, gravatars
+
+*************
+
+Released on a Creative Commons GNU GPL license. See http://creativecommons.org/licenses/GPL/2.0/ for more details.
+
+An 18px grid is used for aesthetic purposes. It is strictly adhered to on the vertical axis, and generally adhered to on the horizontal axis. Modifications will have the best result if all sizes (particularly line heights) are kept as multiples of 18. Notice that this can be a bit tricky when divs have borders (so for example where there's a 1px border, padding/margin should be 17/35/53 px).
+
+I haven't styled the calendar, so you should style this before you use it.
+
+*************/
+
+/* Initialisation */
+* { margin: 0px; padding: 0px; text-decoration:none; }
+.clear, .postmetadata {clear: both;}
+
+
+/* Core structure */
+#page {margin: 54px auto; width: 936px;}
+#content {float: left;padding: 0 0 54px 0px; width: 700px;}
+#sidebar{float:right; margin: 0 0 0 36px; padding-bottom:54px; width: 198px;}
+#footer {margin: 0px auto; clear: both;}
+
+
+/* Universal typography and colors */
+body {font-size: 12px; line-height: 18px; font-family: Helvetica, Verdana, Arial, Sans-Serif; color: #111; text-align: center; background: #fff url('images/headless_bg.jpg') repeat-x;}
+#page {text-align: left;}
+#sidebar, .postdetails, .posttags, #footer, .postmetadata, #commentform, .commentmetadata {color:#aaa;} /*this is the lighter, faux-transparent text color */
+a {color:#0000cc;} 
+a:hover {color:#cc0000;}
+#sidebar a, .commentlist a, .postdetails a, .posttags a, #footer a, .postmetadata a, #commentform a {color:#7f7fe5;} /* this is the lighter, faux-transparent anchor color */
+#sidebar a:hover, .commentlist a:hover, .postdetails a:hover, .posttags a:hover, #footer a:hover, .postmetadata a:hover, #commentform a:hover {color:#e17b7b;}
+.entry p a {border-bottom: 1px dotted #999;}
+small {font-size: 10px; line-height:18px;}
+
+
+/* Universal header styles */
+h1, h2, h3 {font-family: 'Century Gothic', Helvetica, Verdana, Arial, Sans-Serif; font-weight:normal;}
+h2, h3 {margin-bottom:18px;}
+h1, h1 a {color:#999; font-size: 24px; line-height:36px; text-align: left;}
+h1 a:hover {color:#666;}
+h2 {font-size: 30px; line-height: 36px; font-weight:bold;}
+h3 {font-weight:bold;}
+h2, h2 a {color:#333;}
+h2 a:hover {color:#666;}
+
+
+/* Content, entries */
+.entry p {color:#000;}
+.entry ol, .entry ul {padding: 0 0 0 36px; margin:-9px 0px 9px 0px;}
+.post {margin: 0 0 36px;}
+.post hr {display: block;}
+#content .post p {margin:0 0 18px 0;}
+#content .smallattachment {text-align: center;float: left;width: 128px;margin: 5px 5px 5px 0px;}
+#content .attachment {text-align: center;margin: 5px 0px;}
+.postdetails {margin-bottom:18px;}
+
+
+/* Sidebar */
+#sidebar p {margin-bottom:18px;}
+#sidebar h2 {font-size: 12px; line-height:18px; margin:0px; font-weight:normal; color:#aaa;}
+#sidebar ul {list-style-type: none; color:#ccc;}
+#sidebar ul li {list-style-type: none; margin: 0 0 18px 0;}
+#sidebar ul ul {list-style-type:none;}
+#sidebar ul ul li {list-style-type:disc; margin:0px;}
+#sidebar ul ul, #sidebar ul ol {margin: 0 0 0 12px;}
+#sidebar ul ul ul, #sidebar ul ol {margin: 0 0 0 12px;}
+ol li, #sidebar ul ol li {list-style: decimal outside;}
+
+
+/* Footer */
+#footer {background:#333;}
+#footer #h1, #footer .description {font-family: 'Century Gothic', Helvetica, Verdana, Arial, Sans-Serif}
+.description {color:#888;font-size: 14px;}
+#footer p a, #footer h1 a, #footer ul a {color:#999;}
+#footer p a:hover, #footer h1 a:hover, #footer ul a:hover {color:#fff;}
+#footercontainer {background:url('images/headless_portrait.jpg') no-repeat center right; width:936px; text-align:left; margin: 0px auto; padding: 18px 0px; color:#666;}
+#footer ul {display:block; padding:0px; margin-top:18px;}
+#footer ul li {display:inline; font-weight:bold;}
+#footer ul li a {margin-right:18px; border:0px;}
+
+
+/* Comments */
+.commentlist {color:#666; text-align: left;}
+.commentlist li {background: #f8f8f8 url('images/headless_respondbg.jpg') repeat-x top; border: 1px solid #eaeaea; margin: 18px 0 0;padding: 17px; list-style: none; font-weight: bold;}
+.commentlist li .avatar { float: right; padding:0px 0px 9px 18px;}
+.commentlist cite, .commentlist cite a {font-weight: bold;font-style: normal;}
+.commentlist p {font-weight: normal; font-size:12px; text-transform: none;}
+.commentmetadata {margin: 0;display: block;font-weight: normal;}
+.nocomments {text-align: center;margin: 0;padding: 0;}
+
+
+/* Comments response form */
+div#respond {background: #f8f8f8 url('images/headless_respondbg.jpg') repeat-x top; padding:17px; margin-top:36px; border:1px solid #eaeaea;}
+#commentform input.text {width: 170px; line-height:18px; font-size:18px; margin: 9px 5px 0px 0px; background:#eaeaea url('images/headless_inputbg.jpg') repeat-x top; border:1px solid #dbdbdb;}
+#commentform textarea {width: 646px;padding: 8px; background:#eaeaea url('images/headless_inputbg.jpg') repeat-x top; border:1px solid #dbdbdb; font-size: 12px; line-height: 18px; font-family: Helvetica, Verdana, Arial, Sans-Serif; color: #111; margin-bottom:9px;}
+#commentform #submit {margin: 0;float: right;}
+.entry form { /* This is mainly for password protected posts, makes them look better. */ text-align:center;}
+select {width: 130px;}
+.submit {position:relative; top:-18px;}
+
+
+/* Searchbox (designed to be in sidebar but can be included elsewhere)*/
+#searchbox { float:right; width: 198px; height: 36px; background: url(images/headless_searchbox.jpg) no-repeat; margin-bottom:18px;}
+#searchbox #s { float: left; border: 0; margin:2px 0px 0px 6px; width: 152px; background: none; color:#999999; height:34px; font-size:24px; line-height:34px;}
+#searchbox #go { float: right; width:36px; height:36px;  }
+
+
+/* Images */
+p img {max-width: 100%;}
+img.centered {display: block;margin-left: auto;margin-right: auto;}
+img.alignright {margin: 0 0 2px 18px;display: inline;}
+img.alignleft {margin: 0 18px 2px 0;display: inline;}
+
+
+
+/* Calendar - this is not intended for the theme and thus not styled */
+#wp-calendar #prev a, #wp-calendar #next a {font-size: 9pt;}
+#wp-calendar a {text-decoration: none;}
+#wp-calendar caption {font: bold 1.3em 'Lucida Grande', Verdana, Arial, Sans-Serif;text-align: center;}
+#wp-calendar th {font-style: normal;text-transform: capitalize;}
+#wp-calendar {empty-cells: show; margin: 10px auto 0; width: 155px;}
+#wp-calendar #next a {padding-right: 10px; text-align: right; }
+#wp-calendar #prev a {padding-left: 10px; text-align: left;}
+#wp-calendar a {display: block;}
+#wp-calendar caption {text-align: center; width: 100%;}
+#wp-calendar td {padding: 3px 0; text-align: center;}
+#wp-calendar td.pad:hover { /* Doesn't work in IE */ background-color: #fff; }
+
+
+/* Captions */
+.wp-caption {text-align: center;background-color: #f3f3f3;}
+/*.wp-caption img {margin: 0;padding: 0;border: 0 none;}*/
+.wp-caption p.wp-caption-text {	font-size: 10px; line-height: 18px; margin: 0px !important; color:#999;}
+
+
+/* Misc. */
+.alignright {margin: 0 0 2px 18px; float: right;}
+.alignleft {margin: 0 18px 2px 0; float: left}
+.aligncenter, div.aligncenter {display: block;margin-left: auto;margin-right: auto;}
+code {font-family:'Courier New', Courier, Fixed;}
+blockquote {margin: 18px 30px 0 10px;padding-left: 20px;border-left: 5px solid #ddd;}
+blockquote cite {margin: 5px 0 0;display: block;}
+.center {text-align: center;}
+.hidden {display: none;}
+hr {display: none;}
+a img {border: none;}
