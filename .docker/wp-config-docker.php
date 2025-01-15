@@ -13,45 +13,58 @@
  * * Database table prefix
  * * ABSPATH
  *
+ * This has been slightly modified (to read environment variables) for use in Docker.
+ *
  * @link https://developer.wordpress.org/advanced-administration/wordpress/wp-config/
  *
  * @package WordPress
  */
 
- // a helper function to lookup "env_FILE", "env", then fallback
+// IMPORTANT: this file needs to stay in-sync with https://github.com/WordPress/WordPress/blob/master/wp-config-sample.php
+// (it gets parsed by the upstream wizard in https://github.com/WordPress/WordPress/blob/f27cb65e1ef25d11b535695a660e7282b98eb742/wp-admin/setup-config.php#L356-L392)
+
+// a helper function to lookup "env_FILE", "env", then fallback
 if (!function_exists('getenv_docker')) {
 	// https://github.com/docker-library/wordpress/issues/588 (WP-CLI will load this file 2x)
-	function getenv_docker($env, $default)
-	{
-	    if ($fileEnv = getenv($env . '_FILE')) {
-		 return rtrim(file_get_contents($fileEnv), "\r\n");
-	    } else if (($val = getenv($env)) !== false) {
-		 return $val;
-	    } else {
-		 return $default;
-	    }
+	function getenv_docker($env, $default) {
+		if ($fileEnv = getenv($env . '_FILE')) {
+			return rtrim(file_get_contents($fileEnv), "\r\n");
+		}
+		else if (($val = getenv($env)) !== false) {
+			return $val;
+		}
+		else {
+			return $default;
+		}
 	}
-   }
-   
+}
+
+define( 'WP_REDIS_HOST', getenv_docker( 'WORDPRESS_CACHE_HOST', 'wordpress_cache' ) );
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'domain' );
+define( 'DB_NAME', getenv_docker('WORDPRESS_DB_NAME', 'domain') );
 
 /** Database username */
-define( 'DB_USER', 'root' );
+define( 'DB_USER', getenv_docker('WORDPRESS_DB_USER', 'user') );
 
 /** Database password */
-define( 'DB_PASSWORD', 'root' );
+define( 'DB_PASSWORD', getenv_docker('WORDPRESS_DB_PASSWORD', 'root') );
+
+/**
+ * Docker image fallback values above are sourced from the official WordPress installation wizard:
+ * https://github.com/WordPress/WordPress/blob/1356f6537220ffdc32b9dad2a6cdbe2d010b7a88/wp-admin/setup-config.php#L224-L238
+ * (However, using "example username" and "example password" in your database is strongly discouraged.  Please use strong, random credentials!)
+ */
 
 /** Database hostname */
-define( 'DB_HOST', 'wordpress_db' );
+define( 'DB_HOST', getenv_docker('WORDPRESS_DB_HOST', 'wordpress_db') );
 
 /** Database charset to use in creating database tables. */
-define( 'DB_CHARSET', 'utf8mb4' );
+define( 'DB_CHARSET', getenv_docker('WORDPRESS_DB_CHARSET', 'utf8mb4') );
 
 /** The database collate type. Don't change this if in doubt. */
-define( 'DB_COLLATE', '' );
+define( 'DB_COLLATE', getenv_docker('WORDPRESS_DB_COLLATE', '') );
 
 /**#@+
  * Authentication unique keys and salts.
@@ -64,14 +77,15 @@ define( 'DB_COLLATE', '' );
  *
  * @since 2.6.0
  */
-define( 'AUTH_KEY',         'wHWX8zCV7wvsIDTtQ6e=n4]H5] 5euV6.Dvm8B)ou@Gq^g!S+FLkAaoakEiSG1M7' );
-define( 'SECURE_AUTH_KEY',  'yS/h`ECG,GZYvN&f@_RMo8n%^(6Qz-vmd]cLK1#6>;;(ASM0#7-RJ%z}#i)@rk9i' );
-define( 'LOGGED_IN_KEY',    'y6+}@w0=$oss%D+bgcmEhK?k^y}f$+~cQY.5c5*%C2.U~0Ag.0 RSn;y_yh%NDG&' );
-define( 'NONCE_KEY',        'V?;vm|6;Q}8+jUiP<ZzEb#$SUr;jN7R/:p.z(AWW`9J_h|myJZOG$ar>LlO7Hg+p' );
-define( 'AUTH_SALT',        'J<VLS-1df;e,o 6-?Ie[ik<RD(G)7*.S%KIR0yq#OsPmj|HPVC|#]g4xR0@`)!K]' );
-define( 'SECURE_AUTH_SALT', '@g,oa;eq KzA>U)r~vp<x1ror?rs{P`=57-2:9za+Mnu(tcrj]i5dQ=/fmvT;_OE' );
-define( 'LOGGED_IN_SALT',   '@gR]@idi*v+<e]R)d:)3t-hG}X{JEB39 2;%5}|KD(>YZ!VO9!>j1uDZA|L(;Y!g' );
-define( 'NONCE_SALT',       '=z>r=/O3&laA0<].CcgW!m.i*H@vj$yv7~WCMB>sO4Z=K5~43d}OQ!i?@?0fXMFv' );
+define( 'AUTH_KEY',         getenv_docker('WORDPRESS_AUTH_KEY',         'put your unique phrase here') );
+define( 'SECURE_AUTH_KEY',  getenv_docker('WORDPRESS_SECURE_AUTH_KEY',  'put your unique phrase here') );
+define( 'LOGGED_IN_KEY',    getenv_docker('WORDPRESS_LOGGED_IN_KEY',    'put your unique phrase here') );
+define( 'NONCE_KEY',        getenv_docker('WORDPRESS_NONCE_KEY',        'put your unique phrase here') );
+define( 'AUTH_SALT',        getenv_docker('WORDPRESS_AUTH_SALT',        'put your unique phrase here') );
+define( 'SECURE_AUTH_SALT', getenv_docker('WORDPRESS_SECURE_AUTH_SALT', 'put your unique phrase here') );
+define( 'LOGGED_IN_SALT',   getenv_docker('WORDPRESS_LOGGED_IN_SALT',   'put your unique phrase here') );
+define( 'NONCE_SALT',       getenv_docker('WORDPRESS_NONCE_SALT',       'put your unique phrase here') );
+// (See also https://wordpress.stackexchange.com/a/152905/199287)
 
 /**#@-*/
 
@@ -87,7 +101,7 @@ define( 'NONCE_SALT',       '=z>r=/O3&laA0<].CcgW!m.i*H@vj$yv7~WCMB>sO4Z=K5~43d}
  *
  * @link https://developer.wordpress.org/advanced-administration/wordpress/wp-config/#table-prefix
  */
-$table_prefix = 'wp_';
+$table_prefix = getenv_docker('WORDPRESS_TABLE_PREFIX', 'wp_');
 
 /**
  * For developers: WordPress debugging mode.
@@ -101,18 +115,33 @@ $table_prefix = 'wp_';
  *
  * @link https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/
  */
-define( 'WP_DEBUG', false );
+define( 'WP_DEBUG', !!getenv_docker('WORDPRESS_DEBUG', '') );
 
 /* Add any custom values between this line and the "stop editing" line. */
-define( 'WP_SITEURL', 'http://' . $_SERVER['HTTP_HOST']  );
-define( 'WP_HOME', 'http://' . $_SERVER['HTTP_HOST']  );
-define( 'WP_REDIS_HOST', getenv_docker( 'WORDPRESS_CACHE_HOST', 'wordpress_cache' ) );
+
+// If we're behind a proxy server and using HTTPS, we need to alert WordPress of that fact
+// see also https://wordpress.org/support/article/administration-over-ssl/#using-a-reverse-proxy
+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strpos($_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false) {
+	$_SERVER['HTTPS'] = 'on';
+}
+$isHttps = $_SERVER['HTTPS'] === 'on';
+define( 'WP_SITEURL', 'http'.($isHttps ? "s": "").'://' . $_SERVER['HTTP_HOST']  );
+define( 'WP_HOME', 'http'.($isHttps ? "s": "").'://' . $_SERVER['HTTP_HOST']  );
+// (we include this by default because reverse proxying is extremely common in container environments)
+
+if ($configExtra = getenv_docker('WORDPRESS_CONFIG_EXTRA', '')) {
+	eval($configExtra);
+}
 
 /* That's all, stop editing! Happy publishing. */
 
 /** Absolute path to the WordPress directory. */
 if ( ! defined( 'ABSPATH' ) ) {
 	define( 'ABSPATH', __DIR__ . '/' );
+}
+
+if (file_exists(ABSPATH . 'vendor/autoload.php')) {
+	require_once ABSPATH . 'vendor/autoload.php';
 }
 
 /** Sets up WordPress vars and included files. */

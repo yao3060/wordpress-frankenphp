@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -aeuo pipefail
+
+if [ ! $(which git-lfs) ]; then
+    echo "You need Git LFS to run this project"
+    echo ""
+    echo "    https://git-lfs.github.com"
+    echo ""
+    exit 1
+fi
+
+# create the dotenv file if it doesn't exist
+if [ ! -f .env ]; then
+  cp .env.default .env
+fi
+
+source .env
+
+docker compose up $@

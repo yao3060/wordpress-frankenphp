@@ -39,6 +39,8 @@ RUN CGO_ENABLED=1 \
 
 FROM dunglas/frankenphp AS runner
 
+ARG ENVIRONMENT
+
 # Replace the official binary by the one contained your custom modules
 COPY --from=builder /usr/local/bin/frankenphp /usr/local/bin/frankenphp
 ENV PHP_INI_SCAN_DIR=$PHP_INI_DIR/conf.d
@@ -63,8 +65,15 @@ RUN set -eux; \
     echo 'opcache.memory_consumption=128'; \
     echo 'opcache.interned_strings_buffer=8'; \
     echo 'opcache.max_accelerated_files=4000'; \
-    echo 'opcache.revalidate_freq=2'; \
+    echo 'opcache.revalidate_freq=60'; \
+    echo 'opcache.enable_cli=1'; \
     } > $PHP_INI_DIR/conf.d/opcache-recommended.ini
+
+# override opcache configuration for dev environment
+RUN if [ "$ENVIRONMENT" = "local" ]; then \
+      sed -i "/opcache.revalidate_freq/c opcache.revalidate_freq=2" /usr/local/etc/php/conf.d/opcache-recommended.ini; \
+    fi
+
 # https://wordpress.org/support/article/editing-wp-config-php/#configure-error-logging
 
 RUN { \
@@ -81,6 +90,8 @@ RUN { \
     echo 'html_errors = Off'; \
     } > $PHP_INI_DIR/conf.d/error-logging.ini
 
+
+
 WORKDIR /var/www/html
 
 # Adding WordPress CLI
@@ -90,6 +101,10 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     mkdir -p /var/www/.wp-cli
 
 COPY ./.docker/caddy/Caddyfile /etc/caddy/Caddyfile
+
+# copy source code
+COPY ./src /var/www/html
+COPY ./.docker/wp-config-docker.php /var/www/html/wp-config.php
 
 # Running as a Non-Root User
 # @see https://frankenphp.dev/docs/docker/#running-as-a-non-root-user

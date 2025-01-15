@@ -1,7 +1,7 @@
 # README
 
 ## Frankenphp vs Apache
-```
+```bash
 ab -n 1000 -c 50 http://localhost:8081/wp-json/wp/v2/posts
 ```
 

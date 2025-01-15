@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -aeuo pipefail
+
+# create the dotenv file if it doesn't exist
+if [ ! -f .env ]; then
+  cp .env.default .env
+fi
+
+source .env
+
+docker compose -f docker-compose.yaml up -d

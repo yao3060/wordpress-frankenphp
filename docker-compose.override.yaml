@@ -1,0 +1,28 @@
+services:
+  wordpress_frankenphp:
+    build:
+      context: .
+      dockerfile: ./.docker/Dockerfile
+      args:
+        - ENVIRONMENT=${ENVIRONMENT}
+    volumes:
+      - ./src:/var/www/html:delegated
+    environment:
+      - WORDPRESS_DEBUG=1
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+          pids: 100
+        reservations:
+          cpus: '1'
+          memory: 512M
+    # 在生产环境中注释以下行，它允许在 dev 中使用清晰可读日志
+    tty: true
+
+  wordpress_db:
+    restart: "no"
+
+  wordpress_cache:
+    restart: "no"
