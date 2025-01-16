@@ -78,6 +78,9 @@ RUN \
     # Give write access to /data/caddy and /config/caddy
     chown -R www-data:www-data /data/caddy && chown -R www-data:www-data /config/caddy && chown -R www-data:www-data /var/www
 
+# copy start and init scripts to image
+COPY ./.docker/start /start
+
 USER www-data
 
-CMD ["frankenphp", "run", "--config", "/etc/caddy/Caddyfile"]
+CMD ["/start"]
