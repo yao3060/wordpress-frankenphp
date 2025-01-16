@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+mkdir -p $HOME/.composer
+
+# @see https://hub.docker.com/_/composer
+docker run --rm --interactive --tty \
+  --volume "$PWD/src":/app \
+  --volume ${COMPOSER_HOME:-$HOME/.composer}:/tmp \
+  --user $(id -u):$(id -g) \
+  composer:2.7.7 "$@" --ignore-platform-reqs

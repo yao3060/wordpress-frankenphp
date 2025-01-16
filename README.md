@@ -56,3 +56,14 @@ Or
 You can add global service containers like `prerender`, `imaginary`, `nginx proxy`, ... inside the root docker-compose.yml.
 
 Prerender configuration: https://git.it-consultis.net/docker/prerender#project-configuration
+
+
+```bash
+docker run --rm -it -w /app/public \
+   -v $PWD/src:/app/public -p 8000:80 \
+   -v $PWD/.docker/8.3/Caddyfile:/Caddyfile \
+   dunglas/frankenphp:latest-php8.3 bash -c "frankenphp run --config /Caddyfile"
+
+
+docker run --rm -it  -v $PWD/src:/app dunglas/frankenphp bash
+```

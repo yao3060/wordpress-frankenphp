@@ -4,11 +4,7 @@ set -aeuo pipefail
 sed -i "/ENVIRONMENT=/c ENVIRONMENT=production" .env
 sed -i '/DOCKER_NETWORK_IPAM_SUBNET/s/^#\ //g' .env
 sed -i '/DOCKER_NETWORK_IPAM_GATEWAY/s/^#\ //g' .env
-sed -i "/REACT_HTTP_PORT=/c REACT_HTTP_PORT=9002" .env
-sed -i "/LARAVEL_HTTP_PORT=/c LARAVEL_HTTP_PORT=9003" .env
-sed -i "/DRUPAL_HTTP_PORT=/c LARAVEL_HTTP_PORT=9004" .env
-sed -i "/APP_ENV=/c APP_ENV=production" .env
-sed -i "/APP_URL=/c APP_URL=https://base.it-consultis.net" .env
-sed -i "/API_URL=/c API_URL=https://base-api.it-consultis.net" .env
-sed -i "/ADMIN_BACKEND_DOMAIN=/c ADMIN_BACKEND_DOMAIN=base-admin.it-consultis.net" .env
-sed -i "/ADMIN_SECURE=/c ADMIN_SECURE=true" .env
+sed -i "/WORDPRESS_HTTP_PORT=/c WORDPRESS_HTTP_PORT=3061" .env
+sed -i "/DOCKER_NETWORK_IPAM_SUBNET=/c DOCKER_NETWORK_IPAM_SUBNET=172.16.140.0/24" .env
+sed -i "/DOCKER_NETWORK_IPAM_GATEWAY=/c DOCKER_NETWORK_IPAM_GATEWAY=172.16.140.1" .env
+sed -i "/WORDPRESS_SITE_URL=/c WORDPRESS_SITE_URL=https://wordpress-demo.it-consultis.net" .env

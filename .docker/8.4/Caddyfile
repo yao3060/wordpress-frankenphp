@@ -1,0 +1,30 @@
+## 全局设置
+{
+	# 使用本地证书
+	# local_certs
+
+	# 禁用自动 HTTPS 重定向，这在使用反向代理和云负载均衡器时是必要的
+	# This is required to avoid redirect loops when using a reverse proxy and cloud load balancers.
+	auto_https disable_redirects
+
+	frankenphp
+  order php_server before file_server
+}
+
+## 其他全局设置
+{$CADDY_EXTRA_CONFIG}
+
+## Need to set all hosts with port for the cloud.
+# 主服务器配置：
+# - {$SERVER_NAME:localhost}：服务器名称，默认为 localhost
+# - root * /var/www/html/：根目录
+# - encode br zstd gzip：启用 br 压缩，启用 zstd 压缩，启用 gzip 压缩
+# - php_server：启用 PHP 服务器
+# You may not have the hostname being called due to dynamic IPs and load balancers.
+# Allowing all hosts on port 80 for health checks, local dev & cases where the hostname is unknown.
+{$SERVER_NAME:localhost} {
+
+	root * /var/www/html/
+	encode zstd br gzip
+	php_server
+}

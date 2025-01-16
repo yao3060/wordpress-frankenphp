@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-DB_CONTAINER="$(docker ps -q -f NAME=laravel_db)"
-source ../.env
-
-docker exec -ti "$DB_CONTAINER" \
-    mysql -u ${DB_USERNAME} \
-          -p${DB_PASSWORD} \
-          ${DB_DATABASE}

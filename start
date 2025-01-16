@@ -16,35 +16,6 @@ fi
 
 source .env
 
-APP=
-SKIP_INSTALL=0
-NO_DEV=
-while [[ $# -gt 0 ]]; do
-    case $1 in
-        --app)
-            APP="${APP} --app $2"
-            shift 2
-            ;;
-
-        --skip-install)
-            SKIP_INSTALL=1
-            shift
-            ;;
-        --no-dev)
-            NO_DEV='--no-dev'
-            shift
-            ;;
-        *)
-            break
-            ;;
-    esac
-done
-
-# Skip install modules
-if [ "$SKIP_INSTALL" != 1 ]; then
-    echo "install modules"
-    ./install
-fi
 
 echo "start modules"
-./docker-compose $NO_DEV $APP up $@
+./docker-compose up $@
