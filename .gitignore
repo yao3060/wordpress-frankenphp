@@ -7,3 +7,4 @@ Thumbs.db
 .env
 tmp
 src/vendor
+src/wp-content/uploads/*
