@@ -60,7 +60,7 @@ deploy-staging-client-job:
     - source ./.env
     - export COMPOSE_PROJECT_NAME="${PROJECT}_${ENVIRONMENT}"
     - export VERSION=$(cat VERSION)
-    - ./deploy/scripts/deploy-to.sh 47.83.19.228 22
+    - ./deploy/scripts/deploy-to.sh 47.90.34.3 22
     # - ./deploy/scripts/deploy-to.sh [ staging-1 120.55.113.220 ; staging-2 47.90.34.3 ]
     # - ./deploy/scripts/deploy-to-aliyun-cs.sh cron react_nginx [list containers name here, as example] for aliyun_cs
     - echo "pushed successfully"
@@ -103,7 +103,7 @@ deploy-production-job:
     - source ./.env
     - export COMPOSE_PROJECT_NAME="${PROJECT}_${ENVIRONMENT}"
     - export VERSION=$(cat VERSION)
-    - ./deploy/scripts/deploy-to.sh 47.83.22.130 22
+    - ./deploy/scripts/deploy-to.sh 47.90.34.3 22
     # - ./deploy/scripts/deploy-to.sh [replace_production_server_ip_here] for standalone server
     #- ./deploy/scripts/deploy-to-aliyun-cs.sh cron react_nginx [list containers name here, as example] for aliyun_cs
     - echo "pushed successfully"
