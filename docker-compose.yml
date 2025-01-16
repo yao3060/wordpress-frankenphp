@@ -9,7 +9,7 @@
 
 services:
   wordpress_frankenphp:
-    image: yao3060/wordpress-frankenphp:php8.3
+    image: ${CONTAINER_REGISTRY}/${ENVIRONMENT}_wordpress_frankenphp:php8.3-${VERSION}
     restart: always
     env_file: .env
     environment:
