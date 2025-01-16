@@ -6,5 +6,5 @@ if docker-compose build --help | grep -q 'parallel'; then
    PARALLEL="--parallel"
 fi
 
-docker-compose -f ./docker-compose.yml build ${PARALLEL}
-docker-compose -f ./docker-compose.yml push
+docker-compose build ${PARALLEL}
+docker-compose push
