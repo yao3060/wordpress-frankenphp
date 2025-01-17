@@ -41,6 +41,7 @@ build-staging-job:
     - source ./.env
     - export COMPOSE_PROJECT_NAME="${PROJECT}_${ENVIRONMENT}"
     - export VERSION=$(cat VERSION)
+    - ./composer install --no-dev && ./composer dump-autoload && ls -lah ./src
     - ./deploy/scripts/push-to-gitlab.sh
     - echo "built successfully"
   # when: manual
