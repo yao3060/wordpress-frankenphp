@@ -1,6 +1,13 @@
 ARG PHP_VERSION=8.3
 ARG USER=www-data
 
+FROM composer:2.7.7 as composer
+
+# # copy source code to image
+COPY ./src /app
+RUN composer install --no-dev --no-scripts --prefer-dist --optimize-autoloader -vvv
+
+
 FROM dunglas/frankenphp:latest-php${PHP_VERSION}  AS runner
 
 ARG ENVIRONMENT
@@ -65,6 +72,12 @@ COPY ./.docker/8.3/Caddyfile /etc/caddy/Caddyfile
 
 # copy source code
 COPY ./src /var/www/html
+
+# copy composer source code
+COPY --from=composer /app/vendor /var/www/html/vendor
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+RUN /usr/bin/composer dump-autoload
+
 COPY ./.docker/wp-config-docker.php /var/www/html/wp-config.php
 
 # Running as a Non-Root User
