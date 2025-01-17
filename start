@@ -16,6 +16,8 @@ fi
 
 source .env
 
+echo "composer install"
+./composer install
 
 echo "start modules"
 ./docker-compose up $@

@@ -1,0 +1,31 @@
+{
+  "dependencies": {
+    "mui-edit": "^0.1.1-alpha5",
+    "preact": "^10.16.0",
+    "react": "npm:@preact/compat",
+    "react-dom": "npm:@preact/compat"
+  },
+  "scripts": {
+    "dev": "webpack --watch --mode development",
+    "build": "webpack --mode production"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.5",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.18.6",
+    "@types/deep-equal": "^1.0.1",
+    "@types/jquery": "^3.5.16",
+    "@types/node": "^20.4.5",
+    "@types/react": "^17.0.62",
+    "@types/react-dom": "^17.0.20",
+    "@types/webpack": "^5.28.1",
+    "babel-loader": "^9.1.3",
+    "deep-equal": "^2.2.2",
+    "mini-css-extract-plugin": "^2.7.6",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  }
+}

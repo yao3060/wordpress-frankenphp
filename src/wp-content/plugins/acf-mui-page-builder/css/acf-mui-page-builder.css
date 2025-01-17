@@ -1,0 +1,22 @@
+#poststuff #post-body.columns-1 {
+
+  display: grid;
+  gap: 20px;
+  grid-template:
+            "a a a"
+            "b b c"  auto / 1fr 1fr 300px;
+
+  #post-body-content {
+    grid-area: a;
+  }
+
+  #postbox-container-1 {
+    grid-area: c;
+  }
+
+  #postbox-container-2 {
+    grid-area: b;
+  }
+
+}
+
