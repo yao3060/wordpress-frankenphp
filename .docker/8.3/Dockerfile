@@ -76,6 +76,7 @@ COPY ./src /var/www/html
 # copy composer source code
 COPY --from=composer /app/vendor /var/www/html/vendor
 COPY --from=composer /usr/bin/composer /usr/bin/composer
+ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN /usr/bin/composer dump-autoload
 
 COPY ./.docker/wp-config-docker.php /var/www/html/wp-config.php
