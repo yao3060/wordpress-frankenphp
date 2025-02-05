@@ -558,6 +558,8 @@ function wc_update_220_shipping() {
 /**
  * Update order statuses for 2.2
  *
+ * Keeping the internal statuses names as strings to avoid regression issues (not referencing Automattic\WooCommerce\Enums\OrderInternalStatus class).
+ *
  * @return void
  */
 function wc_update_220_order_status() {
@@ -2929,4 +2931,15 @@ function wc_update_950_tracking_option_autoload() {
 		'woocommerce_allow_tracking' => 'yes',
 	);
 	wp_set_option_autoload_values( $options );
+}
+
+/**
+ * Update the base color for emails as part of the WooCommerce rebranding,
+ * but only if the user hasn't specified a custom color.
+ */
+function wc_update_961_migrate_default_email_base_color() {
+	$color = get_option( 'woocommerce_email_base_color' );
+	if ( '#7f54b3' === $color ) {
+		update_option( 'woocommerce_email_base_color', '#720eec' );
+	}
 }
