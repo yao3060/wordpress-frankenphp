@@ -156,5 +156,3 @@ if ( ! function_exists( 'twentytwentyfive_format_binding' ) ) :
 		}
 	}
 endif;
-
-require_once dirname( __FILE__ ) . '/woo.php';
