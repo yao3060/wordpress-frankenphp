@@ -294,7 +294,7 @@ WHERE posts.ID IN ($ids)
                 'uri'          => 'wp-uploads://' . $result['attached_file'],
                 'url'          => $url,
                 'content_type' => $mime_type,
-                'size'         => $metadata['filesize'],
+                'size'         => $metadata['filesize'] ?? 0,
             ];
             if (str_starts_with($mime_type, 'image/')) {
                 $meta['exif'] = [
@@ -302,12 +302,13 @@ WHERE posts.ID IN ($ids)
                     'height' => $metadata['height'],
                 ];
             }
+
             $object =  [
                 'id'           => $result['post_id'],
                 'type'         => 'file',
                 'key'          => $key,
                 'name'         => $name,
-                'size'         => $metadata['filesize'],
+                'size'         => $metadata['filesize'] ?? 0,
                 'lastModified' => $created_at,
                 'meta'         => $meta,
             ];
