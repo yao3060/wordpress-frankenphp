@@ -26,7 +26,7 @@ return [
                 'encryption'       => 'none',
                 'key_store'        => 'db'
             ],
-            'note'     => '<a href="https://fluentsmtp.com/docs/set-up-fluent-smtp-with-any-host-or-mailer/" target="_blank" rel="noopener">Read the documentation</a> for how to configure any SMTP with FluentSMTP.'
+            'note'     => '<a href="https://fluentsmtp.com/docs/set-up-fluent-smtp-with-any-host-or-mailer/" target="_blank" rel="noopener">' . __('Read the documentation', 'fluent-smtp') . '</a>' . __(' for how to configure any SMTP with FluentSMTP.', 'fluent-smtp')
         ],
         'ses'         => [
             'key'      => 'ses',
@@ -173,6 +173,19 @@ return [
                 'key_store'       => 'db'
             ],
             'note'     => '<a href="https://fluentsmtp.com/docs/configure-elastic-email-in-fluent-smtp/" target="_blank" rel="noopener">' . __('Read the documentation', 'fluent-smtp') . '</a>' . __(' for how to configure Elastic Email with FluentSMTP.', 'fluent-smtp')
+        ],
+        'smtp2go'    => [
+          'key'      => 'smtp2go',
+          'title'    => __('SMTP2GO', 'fluent-smtp'),
+          'image'    => fluentMailAssetUrl('images/provider-smtp2go.svg'),
+          'provider' => 'Smtp2Go',
+          'options'  => [
+            'sender_name'     => '',
+            'sender_email'    => '',
+            'force_from_name' => 'no',
+            'api_key'         => '',
+            'key_store'       => 'db'
+          ]
         ],
         'gmail'       => [
             'key'      => 'gmail',

@@ -188,7 +188,7 @@ class NotificationHelper
     public static function sendSlackMessage($message, $webhookUrl, $blocking = false)
     {
 
-        if(is_array($message)) {
+        if (is_array($message)) {
             $body = wp_json_encode($message);
         } else {
             $body = wp_json_encode(array('text' => $message));
@@ -301,7 +301,7 @@ class NotificationHelper
 
     public static function formatSlackMessageBlock($handler, $logData = [])
     {
-        $sendingTo = $this->unserialize(Arr::get($logData, 'to'));
+        $sendingTo = self::unserialize(Arr::get($logData, 'to'));
 
         if (is_array($sendingTo)) {
             $sendingTo = Arr::get($sendingTo, '0.email', '');
@@ -349,7 +349,7 @@ class NotificationHelper
                     'type' => 'section',
                     'text' => [
                         'type' => "mrkdwn",
-                        'text' => "*Error Message:*\n ```" . self::getErrorMessageFromResponse($this->unserialize(Arr::get($logData, 'response'))) . "```"
+                        'text' => "*Error Message:*\n ```" . self::getErrorMessageFromResponse(self::unserialize(Arr::get($logData, 'response'))) . "```"
                     ]
                 ],
                 [
@@ -365,7 +365,7 @@ class NotificationHelper
 
     public static function formatDiscordMessageBlock($handler, $logData = [])
     {
-        $sendingTo = $this->unserialize(Arr::get($logData, 'to'));
+        $sendingTo = self::unserialize(Arr::get($logData, 'to'));
 
         if (is_array($sendingTo)) {
             $sendingTo = Arr::get($sendingTo, '0.email', '');
@@ -382,7 +382,7 @@ class NotificationHelper
         $content .= __('**Sending Driver:** ', 'fluent-smtp') . strtoupper($handler->getSetting('provider')) . "\n";
         $content .= __('**To Email Address:** ', 'fluent-smtp') . $sendingTo . "\n";
         $content .= __('**Email Subject:** ', 'fluent-smtp') . Arr::get($logData, 'subject') . "\n";
-        $content .= __('**Error Message:** ```', 'fluent-smtp') . self::getErrorMessageFromResponse($this->unserialize(Arr::get($logData, 'response'))) . "```\n";
+        $content .= __('**Error Message:** ```', 'fluent-smtp') . self::getErrorMessageFromResponse(self::unserialize(Arr::get($logData, 'response'))) . "```\n";
         $content .= __('[View Failed Email(s)](', 'fluent-smtp') . admin_url('options-general.php?page=fluent-mail#/logs?per_page=10&page=1&status=failed&search=') . ')';
 
         return $content;
@@ -411,13 +411,11 @@ class NotificationHelper
         return $message;
     }
 
-    protected function unserialize($data)
+    protected static function unserialize($data)
     {
         if (is_serialized($data)) {
             if (preg_match('/(^|;)O:[0-9]+:/', $data)) {
-                throw new InvalidArgumentException(
-                    "Unsafe serialized data detected!"
-                );
+                return '';
             }
             return unserialize(trim($data), ['allowed_classes' => false]);
         }
