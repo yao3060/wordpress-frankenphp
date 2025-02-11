@@ -41,6 +41,16 @@ services:
     volumes:
       - wordpress-cache:/data
 
+  meilisearch:
+    image: getmeili/meilisearch:v1.12
+    restart: always
+    env_file: .env
+    environment:
+      - MEILI_MASTER_KEY=${MEILI_MASTER_KEY:-123456}
+    ports:
+      - "${MEILI_PORT:-7700}:7700"
+    volumes:
+      - meilisearch-data:/meili_data
 
 volumes:
   wordpress-uploads:
@@ -49,4 +59,5 @@ volumes:
   # Caddy 证书和配置所需的挂载目录
   caddy-data:
   caddy-config:
+  meilisearch-data:
 

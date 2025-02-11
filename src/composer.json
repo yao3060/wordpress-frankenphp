@@ -1,5 +1,7 @@
 {
     "require": {
-        "illuminate/support": "^11.38"
+        "illuminate/support": "^11.38",
+        "wp-cli/wp-cli": "^2.11",
+        "symfony/var-dumper": "^7.2"
     }
 }
